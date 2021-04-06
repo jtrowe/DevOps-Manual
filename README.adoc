@@ -1,0 +1,4 @@
+= DevOps-Manual
+
+A place to document things in a systematic way.
+
