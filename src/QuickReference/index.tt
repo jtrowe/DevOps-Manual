@@ -8,6 +8,10 @@ $stash->{data} = $data;
 
 [% END %]
 
+[% BLOCK reference - %]
+[% ref.url %][[% ref.name -%]]
+[% END %]
+
 = Quick References
 :toc:
 
@@ -16,8 +20,8 @@ $stash->{data} = $data;
 [% FOR cat IN data.item('_category_names') %]
 == [% cat %]
 
-[% FOR ref IN data.item('_categories').item(cat) -%]
-*   [% ref.url %][[% ref.name -%]]
+[% FOR ref IN data.item('_categories').item(cat).item('references') -%]
+*   [% INCLUDE reference ref=ref -%]
 [% END -%]
 
 [% END %][% # FOR cat %]
