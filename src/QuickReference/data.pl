@@ -39,6 +39,8 @@ my %categories;
 
 foreach my $cat ( @data ) {
     my $cat_name = $cat->{name};
+    $cat->{level} = 1;
+    $cat->{header_mark} = '=' x ( $cat->{level} + 1);
 
     push @category_names, $cat_name;
 

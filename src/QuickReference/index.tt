@@ -10,7 +10,19 @@ $stash->{data} = $data;
 
 [% BLOCK reference - %]
 [% ref.url %][[% ref.name -%]]
-[% END %]
+[% END %][% # BLOCK reference %]
+
+[% BLOCK category - %]
+[% cat.item('header_mark') %] [% cat.item('name') %]
+
+// cat_level = [% cat.item('level') %]
+
+[% FOR ref IN cat.item('references') -%]
+*   [% INCLUDE reference ref=ref -%]
+[% END -%]
+
+[% END %][% # BLOCK category %]
+
 
 = Quick References
 :toc:
@@ -18,11 +30,6 @@ $stash->{data} = $data;
 // This is generated from tpage using the data file [% data_file %].
 
 [% FOR cat IN data.item('_category_names') %]
-== [% cat %]
-
-[% FOR ref IN data.item('_categories').item(cat).item('references') -%]
-*   [% INCLUDE reference ref=ref -%]
-[% END -%]
-
+[% INCLUDE category cat=data.item('_categories').item(cat) -%]
 [% END %][% # FOR cat %]
 
