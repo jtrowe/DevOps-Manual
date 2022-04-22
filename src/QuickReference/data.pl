@@ -56,7 +56,8 @@ foreach my $cat ( @data ) {
     }
 
     @items = sort { $a->{name} cmp $b->{name} } @items;
-    $categories{$cat_name} = \@items;
+    $cat->{references} = \@items;
+    $categories{$cat_name} = $cat;
 }
 
 $stash->{_category_names} = [ sort @category_names ];
