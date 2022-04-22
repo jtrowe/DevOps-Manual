@@ -9,7 +9,7 @@ $YAML::CompressSeries = 0;
 
 my @data = (
     {
-        name => 'Generic',
+        name => 'AsciiDoc',
         references => [
             {
                 name => 'AsciiDoc',
