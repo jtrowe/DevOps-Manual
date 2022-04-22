@@ -6,6 +6,10 @@ my $data = LoadFile($stash->{data_file});
 
 $stash->{data} = $data;
 
+for ( my $i = 0; $i < 4; $i++ ) {
+    $stash->{output}->{header_marks}->{$i} = '=' x ( $i + 1 );
+}
+
 [% END %]
 
 [% BLOCK reference - %]
@@ -13,7 +17,7 @@ $stash->{data} = $data;
 [% END %][% # BLOCK reference %]
 
 [% BLOCK category - %]
-[% cat.item('header_mark') %] [% cat.item('name') %]
+[% output.item('header_marks').item(cat.item('level')) %] [% cat.item('name') %]
 
 // cat_level = [% cat.item('level') %]
 
