@@ -8,9 +8,10 @@ $stash->{data} = $data;
 
 [% END %]
 
-== References
+= Quick References
+:toc:
 
-This is generated from tpage using the data file [% data_file %].
+// This is generated from tpage using the data file [% data_file %].
 
 [% FOR cat IN data.keys.sort %]
 == [% cat %]
