@@ -27,13 +27,21 @@ for ( my $i = 0; $i < 4; $i++ ) {
 
 [% END %][% # BLOCK category %]
 
+[% BLOCK category2 - %]
+[% FOR i IN cat.item('items') -%]
+* [% i.item('url') %][[% i.item('name') %]]
+[% END %]
+[% END %][% # BLOCK category2 %]
+
 
 = Quick References
 :toc:
 
 // This is generated from tpage using the data file [% data_file %].
 
-[% FOR cat IN data.item('_category_names') %]
-[% INCLUDE category cat=data.item('_categories').item(cat) -%]
-[% END %][% # FOR cat %]
+[%# FOR cat IN data.item('_category_names') %]
+[%# INCLUDE category cat=data.item('_categories').item(cat) -%]
+[%# END %][% # FOR cat %]
+
+[% INCLUDE category2 cat=data.item('links') -%]
 
