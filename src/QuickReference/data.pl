@@ -25,31 +25,21 @@ my @data = (
     },
 );
 
-my @data1 = (
-    {
-        name => 'AsciiDoc',
-        references => [
-            {
-                name => 'AsciiDoc',
-                url => 'https://asciidoc-py.github.io/',
-            },
-            {
-                name => 'AsciiDoc User Guide',
-                url => 'https://asciidoc-py.github.io/userguide.html',
-            },
-        ],
-    },
-    {
-        name => 'Perl',
-        references => [ qw(
-            App::cpanminus
-            Dist-Zilla
-            Moose
-            Template
-            YAML
-        ) ],
-    },
+my @perl_packages = qw(
+    App::cpanminus
+    Dist-Zilla
+    Moose
+    Template
+    YAML
 );
+
+foreach my $package ( @perl_packages ) {
+    push @data, {
+        category => [ qw( Perl ) ],
+        name     => sprintf('%s @ MetaCPAN', $package),
+        url      => sprintf('http://metacpan.org/pod/%s', $package),
+    };
+}
 
 my $cache = {
     '_' => { name => 'root', }, # root
