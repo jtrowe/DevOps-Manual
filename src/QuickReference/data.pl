@@ -29,6 +29,7 @@ my %data = (
 
 my $stash = {};
 my @category_names;
+my %categories;
 
 foreach my $cat ( keys %data ) {
     push @category_names, $cat;
@@ -50,10 +51,11 @@ foreach my $cat ( keys %data ) {
     }
 
     @items = sort { $a->{name} cmp $b->{name} } @items;
-    $stash->{$cat} = \@items;
+    $categories{$cat} = \@items;
 }
 
 $stash->{_category_names} = [ sort @category_names ];
+$stash->{_categories} = \%categories;
 
 print Dump($stash) . "\n";
 

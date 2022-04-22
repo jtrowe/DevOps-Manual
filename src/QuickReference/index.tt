@@ -16,7 +16,7 @@ $stash->{data} = $data;
 [% FOR cat IN data.item('_category_names') %]
 == [% cat %]
 
-[% FOR ref IN data.item(cat) -%]
+[% FOR ref IN data.item('_categories').item(cat) -%]
 *   [% ref.url %][[% ref.name -%]]
 [% END -%]
 
