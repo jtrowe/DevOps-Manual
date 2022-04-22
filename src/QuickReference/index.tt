@@ -1,3 +1,6 @@
+= Quick References
+:toc:
+
 [% PERL %]
 
 use YAML qw( LoadFile );
@@ -12,36 +15,27 @@ for ( my $i = 0; $i < 4; $i++ ) {
 
 [% END %]
 
-[% BLOCK reference - %]
-[% ref.url %][[% ref.name -%]]
-[% END %][% # BLOCK reference %]
+[% BLOCK link - %]
+[% l.url %][[% l.name -%]]
+[% END %][% # BLOCK link %]
 
-[% BLOCK category - %]
-[% output.item('header_marks').item(cat.item('level')) %] [% cat.item('name') %]
 
-// cat_level = [% cat.item('level') %]
+[% BLOCK category -%]
 
-[% FOR ref IN cat.item('references') -%]
-*   [% INCLUDE reference ref=ref -%]
+[% FOR i IN cat.item('items') -%]
+[% IF i.item('category') %]
+== [% i.item('category') %]
+
+[% INCLUDE category cat=i %]
+
+[% ELSE -%]
+* [% INCLUDE link l=i -%]
 [% END -%]
-
+[% END %][% # FOR i %]
 [% END %][% # BLOCK category %]
 
-[% BLOCK category2 - %]
-[% FOR i IN cat.item('items') -%]
-* [% i.item('url') %][[% i.item('name') %]]
-[% END %]
-[% END %][% # BLOCK category2 %]
-
-
-= Quick References
-:toc:
 
 // This is generated from tpage using the data file [% data_file %].
 
-[%# FOR cat IN data.item('_category_names') %]
-[%# INCLUDE category cat=data.item('_categories').item(cat) -%]
-[%# END %][% # FOR cat %]
-
-[% INCLUDE category2 cat=data.item('links') -%]
+[% INCLUDE category cat=data -%]
 

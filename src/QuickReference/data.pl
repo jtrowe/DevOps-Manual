@@ -3,19 +3,23 @@ use strict;
 use warnings;
 
 use Data::Printer;
+use Log::Log4perl qw( :easy get_logger );
 use YAML qw( Dump );
 
 $YAML::CompressSeries = 0;
 
+Log::Log4perl->easy_init($DEBUG);
+my $log = get_logger('data.pl');
+
 
 my @data = (
     {
-        category => [ 'Document Tools', 'AsciiDoc' ],
+        category => [ 'AsciiDoc' ],
         name => 'AsciiDoc Home Page',
         url => 'https://asciidoc-py.github.io/',
     },
     {
-        category => [ 'Document Tools', 'AsciiDoc' ],
+        category => [ 'AsciiDoc' ],
         name => 'AsciiDoc User Guide',
         url => 'https://asciidoc-py.github.io/userguide.html',
     },
@@ -47,7 +51,10 @@ my @data1 = (
     },
 );
 
-my $root = get_cat(undef, '');
+my $cache = {
+    '_' => { name => 'root', }, # root
+};
+my $root = $cache->{_};
 my $stash = { links => $root };
 my @category_names;
 my %categories;
@@ -55,55 +62,59 @@ my %categories;
 foreach my $link ( @data ) {
     my $link_name = $link->{name};
 
-    my $cat = get_cat( @{ $link->{categories} } );
+    my $cat = get_cat($cache, $link->{category});
 
-#FIXME for dev
-    $cat = $root;
     my $items = $cat->{items} //= [];
 
     my $cat_name = $cat->{name};
 
-#    push @category_names, $cat_name;
+    delete $link->{category};
+    push @{ $items }, $link;
 
-    #my @items;
-#    if ( 'Perl' eq $cat_name ) {
-#        push @items, {
-#            name => sprintf('%s @ MetaCPAN', $link_name),
-#            url => sprintf('http://metacpan.org/pod/%s', $link_name),
-#        };
-#    }
-#    else {
-        push @{ $items }, $link;
-#    }
-
-    #@items = sort { $a->{name} cmp $b->{name} } @items;
-    #$cat->{references} = \@items;
-    #$categories{$cat_name} = $cat;
 }
 
-#$stash->{_category_names} = [ sort @category_names ];
-#$stash->{_categories} = \%categories;
+$stash = $root;
 
-$stash->{links} = $root;
 
 print Dump($stash) . "\n";
 
-print STDERR "stash:\n" . np($stash) . "\n";
+$log->info("stash:\n" . np($stash));
 
 
 sub get_cat {
-    my $parent = shift;
-    my @name   = @_;
+    my $c = shift;
+    my $i = shift;
 
-    my $path = join '/', @name;
+    my @path = @{ $i };
+    my $path = join '/', @path;
 
-    if ( ! exists($categories{$path}) ) {
-        $categories{$path} = {
-            name  => $name[-1],
-            level => ( $parent ? ( $parent->{level} + 1 ) : 0 ),
-        };
+    unless ( @path ) {
+        return $c->{_};
     }
 
-    return $categories{$path};
+    my @par = @{ \@path };
+    pop @par;
+    my $par_path = join '/', @par;
+    #$log->debug("get_node: path=$path ; par_path=$par_path");
+    my $parent = get_cat($c, \@par);
+
+    my $n = $c->{$path};
+    unless ( $n ) {
+        my @par = @{ \@path };
+        pop @par;
+
+        $n = $c->{$path} = {
+            category => $path[-1],
+            parent => $parent,
+            items => [],
+        };
+        if ( $parent ) {
+            push @{ $parent->{items} //= [] }, $n;
+        }
+    }
+
+    #$log->debug("get_node: path=$path ; return " . np($n));
+
+    return $n;
 }
 
