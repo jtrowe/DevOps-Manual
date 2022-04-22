@@ -13,7 +13,7 @@ $stash->{data} = $data;
 
 // This is generated from tpage using the data file [% data_file %].
 
-[% FOR cat IN data.keys.sort %]
+[% FOR cat IN data.item('_category_names') %]
 == [% cat %]
 
 [% FOR ref IN data.item(cat) -%]

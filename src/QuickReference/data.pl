@@ -28,8 +28,11 @@ my %data = (
 );
 
 my $stash = {};
+my @category_names;
 
 foreach my $cat ( keys %data ) {
+    push @category_names, $cat;
+
     my @items;
 
     if ( 'Perl' eq $cat ) {
@@ -49,6 +52,8 @@ foreach my $cat ( keys %data ) {
     @items = sort { $a->{name} cmp $b->{name} } @items;
     $stash->{$cat} = \@items;
 }
+
+$stash->{_category_names} = [ sort @category_names ];
 
 print Dump($stash) . "\n";
 
