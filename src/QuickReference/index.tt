@@ -1,0 +1,23 @@
+[% PERL %]
+
+use YAML qw( LoadFile );
+
+my $data = LoadFile($stash->{data_file});
+
+$stash->{data} = $data;
+
+[% END %]
+
+== References
+
+This is generated from tpage using the data file [% data_file %].
+
+[% FOR cat IN data.keys.sort %]
+== [% cat %]
+
+[% FOR ref IN data.item(cat) -%]
+*   [% ref.url %][[% ref.name -%]]
+[% END -%]
+
+[% END %][% # FOR cat %]
+
