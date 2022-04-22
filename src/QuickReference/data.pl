@@ -14,12 +14,12 @@ my $log = get_logger('data.pl');
 
 my @data = (
     {
-        category => [ 'AsciiDoc' ],
+        category => [ 'Document Tools', 'AsciiDoc' ],
         name => 'AsciiDoc Home Page',
         url => 'https://asciidoc-py.github.io/',
     },
     {
-        category => [ 'AsciiDoc' ],
+        category => [ 'Document Tools', 'AsciiDoc' ],
         name => 'AsciiDoc User Guide',
         url => 'https://asciidoc-py.github.io/userguide.html',
     },
@@ -105,6 +105,7 @@ sub get_cat {
 
         $n = $c->{$path} = {
             category => $path[-1],
+            level    => scalar(@path),
             parent => $parent,
             items => [],
         };

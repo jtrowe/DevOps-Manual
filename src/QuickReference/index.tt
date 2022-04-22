@@ -24,7 +24,7 @@ for ( my $i = 0; $i < 4; $i++ ) {
 
 [% FOR i IN cat.item('items') -%]
 [% IF i.item('category') %]
-== [% i.item('category') %]
+[% output.item('header_marks').item(i.item('level')) %] [% i.item('category') %]
 
 [% INCLUDE category cat=i %]
 
