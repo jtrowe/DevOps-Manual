@@ -7,51 +7,56 @@ use YAML qw( Dump );
 
 $YAML::CompressSeries = 0;
 
-my %data = (
-    Generic => [
-        {
-            name => 'AsciiDoc',
-            url => 'https://asciidoc-py.github.io/',
-        },
-        {
-            name => 'AsciiDoc User Guide',
-            url => 'https://asciidoc-py.github.io/userguide.html',
-        },
-    ],
-    Perl => [ qw(
-        App::cpanminus
-        Dist-Zilla
-        Moose
-        Template
-        YAML
-    ) ],
+my @data = (
+    {
+        name => 'Generic',
+        references => [
+            {
+                name => 'AsciiDoc',
+                url => 'https://asciidoc-py.github.io/',
+            },
+            {
+                name => 'AsciiDoc User Guide',
+                url => 'https://asciidoc-py.github.io/userguide.html',
+            },
+        ],
+    },
+    {
+        name => 'Perl',
+        references => [ qw(
+            App::cpanminus
+            Dist-Zilla
+            Moose
+            Template
+            YAML
+        ) ],
+    },
 );
 
 my $stash = {};
 my @category_names;
 my %categories;
 
-foreach my $cat ( keys %data ) {
-    push @category_names, $cat;
+foreach my $cat ( @data ) {
+    my $cat_name = $cat->{name};
+
+    push @category_names, $cat_name;
 
     my @items;
-
-    if ( 'Perl' eq $cat ) {
-        foreach my $package ( @{ $data{$cat} } ) {
+    foreach my $ref ( @{ $cat->{references} } ) {
+        if ( 'Perl' eq $cat_name ) {
             push @items, {
-                name => sprintf('%s @ MetaCPAN', $package),
-                url => sprintf('http://metacpan.org/pod/%s', $package),
+                name => sprintf('%s @ MetaCPAN', $ref),
+                url => sprintf('http://metacpan.org/pod/%s', $ref),
             };
         }
-    }
-    else {
-        foreach my $ref ( @{ $data{$cat} } ) {
+        else {
             push @items, $ref;
         }
     }
 
     @items = sort { $a->{name} cmp $b->{name} } @items;
-    $categories{$cat} = \@items;
+    $categories{$cat_name} = \@items;
 }
 
 $stash->{_category_names} = [ sort @category_names ];
