@@ -31,7 +31,8 @@ for ( my $i = 0; $i < 4; $i++ ) {
 [% END %][% # FOR i %]
 [% END %][% # BLOCK category %]
 
-= Quick References
+[%- # BEGINING OF MAIN TEMPLATE %]
+[% output.header_marks.0 %] Quick Reference
 
 // This is generated from tpage using the data file [% data_file %].
 
