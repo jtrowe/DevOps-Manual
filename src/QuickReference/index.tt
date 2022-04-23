@@ -6,8 +6,13 @@ my $data = LoadFile($stash->{data_file});
 
 $stash->{data} = $data;
 
+my $header_char = '=';
+if ( 'markdown' eq $stash->{format} ) {
+    $header_char = '#';
+}
+
 for ( my $i = 0; $i < 4; $i++ ) {
-    $stash->{output}->{header_marks}->{$i} = '=' x ( $i + 1 );
+    $stash->{output}->{header_marks}->{$i} = $header_char x ( $i + 1 );
 }
 
 [% END %]
@@ -35,6 +40,8 @@ for ( my $i = 0; $i < 4; $i++ ) {
 [% output.header_marks.0 %] Quick Reference
 
 // This is generated from tpage using the data file [% data_file %].
+// param : data_file = [% data_file %]
+// param : format = [% format %]
 
 [% INCLUDE category cat=data -%]
 
