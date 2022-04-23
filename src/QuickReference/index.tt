@@ -18,7 +18,11 @@ for ( my $i = 0; $i < 4; $i++ ) {
 [% END %]
 
 [% BLOCK link - %]
+[% IF 'markdown' == format -%]
+[[% l.name -%]]([% l.url %])
+[% ELSE -%]
 [% l.url %][[% l.name -%]]
+[% END -%]
 [% END %][% # BLOCK link %]
 
 
@@ -39,9 +43,11 @@ for ( my $i = 0; $i < 4; $i++ ) {
 [%- # BEGINING OF MAIN TEMPLATE %]
 [% output.header_marks.0 %] Quick Reference
 
+[% IF 'markdown' != format -%]
 // This is generated from tpage using the data file [% data_file %].
 // param : data_file = [% data_file %]
 // param : format = [% format %]
+[% END %]
 
 [% INCLUDE category cat=data -%]
 
