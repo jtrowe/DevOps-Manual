@@ -1,0 +1,50 @@
+---
+-
+  category:
+    - Document Tools
+    - AsciiDoc
+  name: AsciiDoc Home Page
+  url: https://asciidoc-py.github.io/
+-
+  category:
+    - Document Tools
+    - AsciiDoc
+  name: AsciiDoc User Guide
+  url: https://asciidoc-py.github.io/userguide.html
+-
+  category:
+    - Perl
+  name: App::cpanminus
+-
+  category:
+    - Perl
+  name: Dist-Zilla
+-
+  category:
+    - Perl
+  name: YAML
+-
+  category:
+    - Perl
+  name: Moose
+-
+  category:
+    - Perl
+  name: Template
+-
+  category:
+    - Tools
+    - Gitea
+  name: Gitea Home Page
+  url: https://gitea.io/en-us/
+-
+  category:
+    - Tools
+    - Gitea
+  name: Gitea: Automatically Linked References in Issues, Pull Requests and Commit MessagesAutomatically Linked References in Issues, Pull Requests and Commit Messages
+  url: https://docs.gitea.io/en-us/automatically-linked-references/
+-
+  category:
+    - Tools
+  name: Timetrap - CLI Time Tracking
+  url: https://github.com/samg/timetrap
