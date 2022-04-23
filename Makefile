@@ -14,7 +14,8 @@ identity_stylesheet=src/xslt/identity.xslt
 
 build : \
 $(build_dir)/DevOps-Manual/epub3/DevOps-Manual.epub \
-$(build_dir)/QuickReference.html
+$(build_dir)/QuickReference.html \
+$(build_dir)/QuickReference-Hugo.html
 
 
 clean :
@@ -47,6 +48,12 @@ $(source_dir)/DevOps-Manual/DevOps-Manual.xml
 $(build_dir)/QuickReference.html : $(build_dir)/QuickReference.adoc
 	@ mkdir --parents $$(dirname $@)
 	asciidoc --backend html --doctype article --out-file $@ $<
+
+
+$(build_dir)/QuickReference-Hugo.html : $(build_dir)/QuickReference.adoc
+	@ mkdir --parents $$(dirname $@)
+	cp src/css/hugo-loveit.css $$(dirname $@)/style.min.css
+	asciidoc -a linkcss -a stylesdir=css -a stylesheet=style.min.css --backend html --doctype article --out-file $@ $<
 
 
 $(build_dir)/QuickReference.adoc : \
