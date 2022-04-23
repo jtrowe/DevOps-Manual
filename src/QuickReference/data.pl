@@ -4,13 +4,14 @@ use warnings;
 
 use Data::Printer;
 use Log::Log4perl qw( :easy get_logger );
-use YAML qw( Dump );
+use YAML qw( Dump LoadFile );
 
 $YAML::CompressSeries = 0;
 
 Log::Log4perl->easy_init($DEBUG);
 my $log = get_logger('data.pl');
 
+my $data_file = shift @ARGV;
 
 my @data = (
     {
@@ -35,10 +36,27 @@ my @perl_packages = qw(
 
 foreach my $package ( @perl_packages ) {
     push @data, {
-        category => [ qw( Perl ) ],
-        name     => sprintf('%s @ MetaCPAN', $package),
-        url      => sprintf('http://metacpan.org/pod/%s', $package),
-    };
+        category => [ 'Perl' ],
+        name => $package,
+        url => '@',
+    },
+}
+
+$log->info("middle:\n" . Dump(\@data));
+
+my $d = LoadFile($data_file);
+@data = @{ $d };
+
+#@data = sort { $a->{name} cmp $b->{name} } @data;
+@data = sort cmp_data @data;
+
+$log->info("middle2:\n" . Dump(\@data));
+
+foreach my $info ( @data ) {
+    if ( 'Perl' eq $info->{category}->[0] ) {
+        $info->{url} = sprintf('http://metacpan.org/pod/%s', $info->{name});
+        $info->{name} = sprintf('%s @ MetaCPAN', $info->{name});
+    }
 }
 
 my $cache = {
@@ -65,6 +83,7 @@ foreach my $link ( @data ) {
 
 $stash = $root;
 
+#sort_struct($root);
 
 print Dump($stash) . "\n";
 
@@ -108,4 +127,19 @@ sub get_cat {
 
     return $n;
 }
+
+
+sub cmp_data {
+    my $cat_a = join '/', @{ $a->{category} // [] };
+    my $cat_b = join '/', @{ $b->{category} // [] };
+
+    my $rv = $cat_a cmp $cat_b;
+
+    if ( 0 == $rv ) {
+        return $a->{name} cmp $b->{name};
+    }
+
+    return $rv;
+}
+
 

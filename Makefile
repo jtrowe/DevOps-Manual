@@ -57,8 +57,9 @@ $(build_dir)/YAML/QuickReference.yml
 
 
 $(build_dir)/YAML/QuickReference.yml : \
-$(source_dir)/QuickReference/data.pl
+$(source_dir)/QuickReference/data.pl \
+$(source_dir)/QuickReference/data.yml
 	@ mkdir --parents $$(dirname $@)
-	perl $< > $@
+	perl $^ > $@
 
 
