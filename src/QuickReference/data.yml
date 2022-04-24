@@ -48,3 +48,8 @@
     - Tools
   name: Timetrap - CLI Time Tracking
   url: https://github.com/samg/timetrap
+-
+  category:
+    - Hugo
+  name: A curated list of awesome things related to Hugo
+  url: https://github.com/theNewDynamic/awesome-hugo
