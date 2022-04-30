@@ -22,7 +22,7 @@ $(build_dir)/QuickReference-Hugo.md
 
 deploy : \
 $(deploy_dir)/QuickReference.html \
-$(deploy_dir)/QuickReference-Hugo.html
+$(deploy_dir)/QuickReference-Hugo.md
 
 
 .PHONEY : clean
