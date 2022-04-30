@@ -10,6 +10,7 @@ build_dir=build
 
 epub_stylesheet=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub3/chunk.xsl
 identity_stylesheet=src/xslt/identity.xslt
+deploy_dir=DOC
 
 
 build : \
@@ -19,6 +20,12 @@ $(build_dir)/QuickReference-Hugo.html \
 $(build_dir)/QuickReference-Hugo.md
 
 
+deploy : \
+$(deploy_dir)/QuickReference.html \
+$(deploy_dir)/QuickReference-Hugo.html
+
+
+.PHONEY : clean
 clean :
 	rm -rf $(build_dir)/*
 
@@ -40,6 +47,15 @@ $(build_dir)/DevOps-Manual/DocBook5/DevOps-Manual.xml : \
 $(source_dir)/DevOps-Manual/DevOps-Manual.xml
 	@ mkdir --parents $$(dirname $@)
 	xsltproc --output $@ --xinclude $(identity_stylesheet) $<
+
+
+#
+# deploy_dir files
+#
+
+$(deploy_dir)/% : $(build_dir)/%
+	@ mkdir --parents $$(dirname $@)
+	cp --archive $< $@
 
 
 #
