@@ -53,3 +53,9 @@
     - Hugo
   name: A curated list of awesome things related to Hugo
   url: https://github.com/theNewDynamic/awesome-hugo
+-
+  category:
+    - Document Tools
+    - DocBook
+  name: DocBook 5.2: The Definitive Guide
+  url: https://tdg.docbook.org/tdg/5.2/index.html
