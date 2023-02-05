@@ -32,7 +32,7 @@
       <secondary>ssh-keygen</secondary>
     </indexterm>
     <citation>MAN_ssh-keygen</citation>
-    <citation>SO_4411457</citation>
+    <citation>SE_3818886</citation>
 
   </para>
 
@@ -41,7 +41,7 @@
         href="../../../Biblioentries/M/MAN_ssh-keygen.xml"
     />
     <xi:include
-        href="../../../Biblioentries/S/SO_4411457.xml"
+        href="../../../Biblioentries/S/SE_3818886.xml"
     />
   </bibliography>
 
