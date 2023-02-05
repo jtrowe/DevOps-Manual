@@ -12,6 +12,7 @@ epub_stylesheet=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub3/chunk.xsl
 xhtml5_stylesheet=/usr/share/xml/docbook/stylesheet/docbook-xsl/xhtml5/chunk.xsl
 identity_stylesheet=src/xslt/identity.xslt
 deploy_dir=DOC
+assembly_jar=/home/jrowe/projects/SuperDoc/lib/assembly-1_1_0/lib/assembly.jar
 
 
 build : \
@@ -71,6 +72,27 @@ $(source_dir)/DevOps-Manual/Topics/SSH/verify_key_passphrase.xml \
 $(source_dir)/Biblioentries/S/SO_4411457.xml
 	@ mkdir --parents $$(dirname $@)
 	xsltproc --output $@ --xinclude $(identity_stylesheet) $<
+
+
+#
+# assembly SSH
+#
+
+$(build_dir)/Assemblies/SSH/xhtml/index.xhtml : \
+$(build_dir)/Assemblies/SSH.xml
+	@ mkdir --parents $$(dirname $@)
+	#cd $$(dirname $@) ; ls ../../
+	cd $$(dirname $@) ; xsltproc $(xhtml5_stylesheet) ../../$$(basename $<)
+
+
+
+$(build_dir)/Assemblies/SSH.xml : \
+$(source_dir)/Assemblies/SSH.xml \
+$(source_dir)/DevOps-Manual/Topics/SSH/verify_key_passphrase.xml \
+$(source_dir)/Biblioentries/M/MAN_ssh-keygen.xml \
+$(source_dir)/Biblioentries/S/SO_4411457.xml
+	@ mkdir --parents $$(dirname $@)
+	java -jar $(assembly_jar) $< $@
 
 
 #
