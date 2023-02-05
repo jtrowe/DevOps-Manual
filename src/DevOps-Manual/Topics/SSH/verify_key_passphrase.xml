@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<section
+<topic
     xmlns="http://docbook.org/ns/docbook"
     xmlns:xi="http://www.w3.org/2001/XInclude"
     version="5.2"
-    id="Topic_SSH_client"
+    id="Topic_SSH_verify_key_passphrase"
 >
 
   <info>
@@ -19,4 +19,4 @@
 
   </para>
 
-</section>
+</topic>
