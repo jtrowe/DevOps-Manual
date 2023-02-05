@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<biblioentry
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.2"
+>
+  <abbrev>MAN_ssh-keygen</abbrev>
+  <link xlink:href="https://man.openbsd.org/ssh-keygen">
+  man: ssh-keygen
+  </link>
+</biblioentry>
