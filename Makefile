@@ -18,6 +18,7 @@ assembly_jar=/home/jrowe/projects/SuperDoc/lib/assembly-1_1_0/lib/assembly.jar
 build : \
 $(build_dir)/DevOps-Manual/epub3/DevOps-Manual.epub \
 $(build_dir)/DevOps-Manual/xhtml5/DevOps-Manual.xhtml \
+$(build_dir)/DevOps-Manual/xhtml5-assembly/DevOps-Manual.xhtml \
 $(build_dir)/QuickReference.html \
 $(build_dir)/QuickReference-Hugo.html \
 $(build_dir)/QuickReference-Hugo.md
@@ -75,19 +76,17 @@ $(source_dir)/Biblioentries/S/SO_4411457.xml
 
 
 #
-# assembly SSH
+# DevOps assembly
 #
 
-$(build_dir)/Assemblies/SSH/xhtml/index.xhtml : \
-$(build_dir)/Assemblies/SSH.xml
+$(build_dir)/DevOps-Manual/xhtml5-assembly/DevOps-Manual.xhtml : \
+$(build_dir)/DevOps-Manual/DocBook5/realized.xml
 	@ mkdir --parents $$(dirname $@)
-	#cd $$(dirname $@) ; ls ../../
-	cd $$(dirname $@) ; xsltproc $(xhtml5_stylesheet) ../../$$(basename $<)
+	cd $$(dirname $@) ; xsltproc $(xhtml5_stylesheet) ../DocBook5/$$(basename $<)
 
 
-
-$(build_dir)/Assemblies/SSH.xml : \
-$(source_dir)/Assemblies/SSH.xml \
+$(build_dir)/DevOps-Manual/DocBook5/realized.xml : \
+$(source_dir)/DevOps-Manual/assembly.xml \
 $(source_dir)/DevOps-Manual/Topics/SSH/verify_key_passphrase.xml \
 $(source_dir)/Biblioentries/M/MAN_ssh-keygen.xml \
 $(source_dir)/Biblioentries/S/SO_4411457.xml
