@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<biblioentry
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.2"
+>
+  <abbrev>SE_3818886</abbrev>
+  <link xlink:href="https://stackoverflow.com/questions/3818886/how-do-i-add-a-password-to-an-openssh-private-key-that-was-generated-without-a-p">
+  How Do I Add a Password To An SSH Private Key?
+  </link>
+</biblioentry>
