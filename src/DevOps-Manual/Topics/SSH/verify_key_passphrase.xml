@@ -27,6 +27,10 @@
     <screen language="sh">
       ssh-keygen -y -f $private_keyfile
     </screen>
+    <indexterm>
+      <primary>ssh</primary>
+      <secondary>ssh-keygen</secondary>
+    </indexterm>
     <citation>MAN_ssh-keygen</citation>
     <citation>SO_4411457</citation>
 
