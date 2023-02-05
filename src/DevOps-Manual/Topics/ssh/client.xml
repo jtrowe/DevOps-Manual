@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    version="5.2"
+    id="Topic_SSH_client"
+>
+
+  <info>
+    <title>SSH Client Usage</title>
+  </info>
+
+  <para>
+    Verify the passphrase for an ssh key:
+    <screen language="sh">
+      ssh-keygen -y -f $private_keyfile
+    </screen>
+    <citation>SO_4411457</citation>
+
+  </para>
+
+</section>

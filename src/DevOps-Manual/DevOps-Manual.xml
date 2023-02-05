@@ -23,6 +23,16 @@
     </abstract>
   </info>
 
+  <xi:include
+      href="Topics/ssh/client.xml"
+  />
+
+  <bibliography>
+    <xi:include
+        href="../Biblioentries/S/SO_4411457.xml"
+    />
+  </bibliography>
+
   <index />
 
 </book>

@@ -66,7 +66,9 @@ $(build_dir)/DevOps-Manual/DocBook5/DevOps-Manual.xml
 
 
 $(build_dir)/DevOps-Manual/DocBook5/DevOps-Manual.xml : \
-$(source_dir)/DevOps-Manual/DevOps-Manual.xml
+$(source_dir)/DevOps-Manual/DevOps-Manual.xml \
+$(source_dir)/DevOps-Manual/Topics/ssh/client.xml \
+$(source_dir)/Biblioentries/S/SO_4411457.xml
 	@ mkdir --parents $$(dirname $@)
 	xsltproc --output $@ --xinclude $(identity_stylesheet) $<
 

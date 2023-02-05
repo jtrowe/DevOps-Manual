@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<biblioentry
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.2"
+>
+  <abbrev>SO_4411457</abbrev>
+  <link xlink:href="https://stackoverflow.com/questions/4411457/how-do-i-verify-check-test-validate-my-ssh-passphrase">
+  How Do I Verify My SSH Passphrase For A Key?
+  </link>
+</biblioentry>
