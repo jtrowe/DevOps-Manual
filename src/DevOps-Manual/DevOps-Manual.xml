@@ -24,7 +24,7 @@
   </info>
 
   <xi:include
-      href="Topics/ssh/client.xml"
+      href="Topics/SSH/verify_key_passphrase.xml"
   />
 
   <bibliography>
