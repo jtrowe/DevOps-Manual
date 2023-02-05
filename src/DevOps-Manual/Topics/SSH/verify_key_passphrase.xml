@@ -7,6 +7,18 @@
 >
 
   <info>
+    <keywordset>
+      <keyword>key</keyword>
+      <keyword>passphrase</keyword>
+      <keyword>password</keyword>
+      <keyword>ssh</keyword>
+    </keywordset>
+    <subjectset>
+      <subject>key</subject>
+      <subject>passphrase</subject>
+      <subject>password</subject>
+      <subject>ssh</subject>
+    </subjectset>
     <title>SSH Client Usage</title>
   </info>
 
@@ -15,8 +27,15 @@
     <screen language="sh">
       ssh-keygen -y -f $private_keyfile
     </screen>
+    <citation>MAN_ssh-keygen</citation>
     <citation>SO_4411457</citation>
 
   </para>
+
+  <bibliography>
+    <xi:include
+        href="../../../Biblioentries/M/MAN_ssh-keygen.xml"
+    />
+  </bibliography>
 
 </topic>
