@@ -43,7 +43,14 @@
       />
     </bibliography>
 
-    <index />
+    <module
+        renderas="index"
+    >
+      <info>
+        <title>Index</title>
+      </info>
+    </module>
+
 
   </structure>
 </assembly>
