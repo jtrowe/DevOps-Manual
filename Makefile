@@ -87,6 +87,7 @@ $(build_dir)/DevOps-Manual/DocBook5/realized.xml
 
 $(build_dir)/DevOps-Manual/DocBook5/realized.xml : \
 $(source_dir)/DevOps-Manual/assembly.xml \
+$(source_dir)/DevOps-Manual/Topics/SSH/add_passphrase_to_key.xml \
 $(source_dir)/DevOps-Manual/Topics/SSH/verify_key_passphrase.xml \
 $(source_dir)/Biblioentries/M/MAN_ssh-keygen.xml \
 $(source_dir)/Biblioentries/S/SO_4411457.xml
