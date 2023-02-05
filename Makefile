@@ -9,12 +9,14 @@ source_dir=src
 build_dir=build
 
 epub_stylesheet=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub3/chunk.xsl
+xhtml5_stylesheet=/usr/share/xml/docbook/stylesheet/docbook-xsl/xhtml5/chunk.xsl
 identity_stylesheet=src/xslt/identity.xslt
 deploy_dir=DOC
 
 
 build : \
 $(build_dir)/DevOps-Manual/epub3/DevOps-Manual.epub \
+$(build_dir)/DevOps-Manual/xhtml5/DevOps-Manual.xhtml \
 $(build_dir)/QuickReference.html \
 $(build_dir)/QuickReference-Hugo.html \
 $(build_dir)/QuickReference-Hugo.md
@@ -30,6 +32,10 @@ clean :
 	rm -rf $(build_dir)/*
 
 
+#
+# epub format
+#
+
 $(build_dir)/DevOps-Manual/epub3/DevOps-Manual.epub : \
 $(build_dir)/DevOps-Manual/epub3/mimetype
 	@ mkdir --parents $$(dirname $@)
@@ -41,6 +47,22 @@ $(build_dir)/DevOps-Manual/epub3/mimetype : \
 $(build_dir)/DevOps-Manual/DocBook5/DevOps-Manual.xml
 	@ mkdir --parents $$(dirname $@)
 	cd $$(dirname $@) ; xsltproc $(epub_stylesheet) ../DocBook5/$$(basename $<)
+
+
+#
+# xhtml5 format
+#
+
+
+$(build_dir)/DevOps-Manual/xhtml5/DevOps-Manual.xhtml : \
+$(build_dir)/DevOps-Manual/DocBook5/DevOps-Manual.xml
+	@ mkdir --parents $$(dirname $@)
+	cd $$(dirname $@) ; xsltproc $(xhtml5_stylesheet) ../DocBook5/$$(basename $<)
+
+
+#
+# DocBook5 intermediate output
+#
 
 
 $(build_dir)/DevOps-Manual/DocBook5/DevOps-Manual.xml : \
