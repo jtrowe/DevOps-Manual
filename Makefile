@@ -123,14 +123,14 @@ $(build_dir)/QuickReference.adoc : \
 $(source_dir)/QuickReference/index.tt \
 $(build_dir)/YAML/QuickReference.yml
 	@ mkdir --parents $$(dirname $@)
-	tpage --define data_file="$(build_dir)/YAML/QuickReference.yml" --eval_perl $< > $@
+	carton exec -- tpage --define data_file="$(build_dir)/YAML/QuickReference.yml" --eval_perl $< > $@
 
 
 $(build_dir)/QuickReference-Hugo.md : \
 $(source_dir)/QuickReference/index.tt \
 $(build_dir)/YAML/QuickReference.yml
 	@ mkdir --parents $$(dirname $@)
-	tpage --define data_file="$(build_dir)/YAML/QuickReference.yml" --define format=markdown --eval_perl $< > $@
+	carton exec -- tpage --define data_file="$(build_dir)/YAML/QuickReference.yml" --define format=markdown --eval_perl $< > $@
 
 
 $(build_dir)/YAML/QuickReference.yml : \
