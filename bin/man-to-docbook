@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -eu
+
+name="$1"
+file=$(man --path $name)
+
+gunzip --stdout $file | mandoc -T html > build/man/$name.html
+pandoc --from html build/man/$name.html --to docbook5
+
