@@ -1,4 +1,19 @@
+# Vim
 *~
 .*.swp
+.viminfo
 
+# Project Make build dir
 build/
+
+# log file ; either Make or Maven
+m.log
+
+# Maven build directory
+target/
+
+# Perl local::lib
+local/
+
+# is/was for sharing unversioned files with other tooling
+DOC/

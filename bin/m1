@@ -1,0 +1,36 @@
+#!/usr/bin/env bash
+
+set -eu
+
+# bash
+# gzip
+# troff
+
+file=$(man --path bash)
+lfile="bash.1.troff"
+mkdir --parents build/man
+#groff -m mandoc -Thtml bash > build/man/bash.html
+cp --archive $file $lfile.gz
+#gunzip --force $lfile.gz
+#ls *.troff
+
+#groff -Thtml $lfile > build/man/bash.html
+
+gunzip --stdout $file | groff -Thtml > build/man/bash.groff.html
+
+#gunzip --stdout $file | troff -T html build/man/bash.html
+
+gunzip --stdout $file | man2html > build/man/bash.0.html
+gunzip --stdout $file | mandoc -T html > build/man/bash.1.html
+
+# fails
+#gunzip --stdout $file | mandoc -T markdown > build/man/bash.2.md
+#asciidoc --backend html5 build/man/bash.2.md > build/man/bash.2.html
+
+#doclifter -x $lfile.gz
+
+#manlifter -h -o build/man manlifter
+
+##--troff troff to text output
+# --ditroff 
+
