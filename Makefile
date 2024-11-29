@@ -7,6 +7,25 @@ MAKEFLAGS += --warn-undefined-variables
 
 source_dir=src
 build_dir=build
+root_dir:=$(shell pwd)
+
+db_xsl1_ver=snapshot
+db_xsl1_name=docbook-xsl-$(db_xsl1_ver)
+db_xsl1_zip=$(db_xsl1_name).zip
+db_xsl1_url=https://github.com/docbook/xslt10-stylesheets/releases/download/snapshot%2F2020-06-03/$(db_xsl1_zip)
+db_xsl1_stylesheet:=$(root_dir)/$(source_dir)/xsl/$(db_xsl1_name)/xhtml5/docbook.xsl
+
+db_xsl2_ver=2.6.0
+db_xsl2_name=docbook-xslt2-$(db_xsl2_ver)
+db_xsl2_zip=$(db_xsl2_name).zip
+db_xsl2_url=https://github.com/docbook/xslt20-stylesheets/releases/download/$(db_xsl2_ver)/$(db_xsl2_zip)
+db_xsl2_stylesheet:=$(root_dir)/$(source_dir)/xsl/$(db_xsl2_name)/xslt/base/html/html.xsl
+
+db_xsl_tng_ver=2.5.0
+db_xsl_tng_name=docbook-xslTNG-$(db_xsl_tng_ver)
+db_xsl_tng_zip=$(db_xsl_tng_name).zip
+db_xsl_tng_url=https://github.com/docbook/xslTNG/releases/download/$(db_xsl_tng_ver)/$(db_xsl_tng_zip)
+db_xsl_tng_stylesheet:=$(root_dir)/$(source_dir)/xsl/$(db_xsl_tng_name)/xslt/docbook.xsl
 
 epub_stylesheet=/usr/share/xml/docbook/stylesheet/docbook-xsl/epub3/chunk.xsl
 xhtml5_stylesheet=/usr/share/xml/docbook/stylesheet/docbook-xsl/xhtml5/chunk.xsl
@@ -138,5 +157,69 @@ $(source_dir)/QuickReference/data.pl \
 $(source_dir)/QuickReference/data.yml
 	@ mkdir --parents $$(dirname $@)
 	carton exec -- perl $^ > $@
+
+
+.PHONEY: docbook-xsl1
+docbook-xsl1: $(source_dir)/xsl/$(db_xsl1_name)/.done
+
+$(source_dir)/xsl/$(db_xsl1_name)/.done : \
+$(source_dir)/xsl/$(db_xsl1_zip)
+	cd $$(dirname $<) ; unzip -o $$(basename $<)
+	touch $@
+
+$(source_dir)/xsl/$(db_xsl1_zip):
+	@ mkdir --parents $$(dirname $@)
+	wget --output-document $@ $(db_xsl1_url)
+
+.PHONEY: docbook-xsl2
+docbook-xsl2: $(source_dir)/xsl/$(db_xsl2_name)/.done
+
+$(source_dir)/xsl/$(db_xsl2_name)/.done : \
+$(source_dir)/xsl/$(db_xsl2_zip)
+	cd $$(dirname $<) ; unzip -o $$(basename $<)
+	touch $@
+
+$(source_dir)/xsl/$(db_xsl2_zip):
+	@ mkdir --parents $$(dirname $@)
+	wget --output-document $@ $(db_xsl2_url)
+
+.PHONEY: docbook-xsl-tng
+docbook-xsl-tng: $(source_dir)/xsl/$(db_xsl_tng_name)/.done
+
+$(source_dir)/xsl/$(db_xsl_tng_name)/.done: \
+$(source_dir)/xsl/$(db_xsl_tng_zip)
+	cd $$(dirname $<) ; unzip -o $$(basename $<)
+	touch $@
+
+$(source_dir)/xsl/$(db_xsl_tng_zip):
+	@ mkdir --parents $$(dirname $@)
+	wget --output-document $@ $(db_xsl_tng_url)
+
+
+.PHONEY: build.html5
+build.html5: \
+$(build_dir)/Website/index.html \
+$(build_dir)/Website/Test/DevOps-Manual/index.xhtml
+
+$(build_dir)/Website/Test/DevOps-Manual/index.xhtml: \
+$(source_dir)/DevOps-Manual/DevOps-Manual.test.xml \
+$(source_dir)/xsl/$(db_xsl1_name)/.done
+	@ mkdir --parents $$(dirname $@)
+	cd $$(dirname $@) ; \
+	xsltproc --output $$(basename $@) \
+	$(db_xsl1_stylesheet) \
+	../../../../$<
+
+# need a 2.0 and 3.0 xslt processor
+#$(source_dir)/xsl/$(db_xsl2_name)/.done \
+#$(source_dir)/xsl/$(db_xsl_tng_name)/.done
+#	$(db_xsl2_stylesheet) \
+#	$(db_xsl_tng_stylesheet) \
+
+
+$(build_dir)/Website/index.html: \
+$(source_dir)/Website/index.html
+	@ mkdir --parents $$(dirname $@)
+	cp --archive $< $@
 
 
