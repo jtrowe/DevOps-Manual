@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
+LIB_DIR="$SCRIPT_DIR/../lib"
+
+jar="$LIB_DIR/saxon12_5/saxon-he-12.5.jar"
+
+java -jar $jar $*

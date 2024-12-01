@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assembly
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    version="5.2"
+>
+  <resources>
+    <resource
+        href="topic.xml"
+        xml:id="Topic_Release_Process"
+    />
+
+  </resources>
+
+  <structure renderas="article">
+    <merge>
+      <title>Release Process</title>
+    </merge>
+
+    <module
+        renderas="procedure"
+        resourceref="Topic_Release_Process"
+    />
+  </structure>
+</assembly>

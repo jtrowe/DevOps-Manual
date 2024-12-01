@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+test="${1:=}"
+echo -n "===================="
+echo -n "  $test  "
+echo    "===================="

@@ -1,0 +1,6 @@
+- Add document Website
+- Deploy Website to GitHub pages on tag `release/site`.
+- Add release procedure documentation for use in other projects.
+- Standardize to use underscores as spaces.
+- Download libraries as needed.
+- Commit several library zip files.

@@ -1,0 +1,22 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+div {
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    margin-left: 0.5em;
+}
+
+.Section {
+    margin-left: 1em;
+    margin-top: 0.5em;
+}
+
+.Title {
+    font-size: 125%;
+}

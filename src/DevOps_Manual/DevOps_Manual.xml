@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<book
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    version="5.2"
+>
+  <title>DevOps Manual</title>
+
+  <info>
+    <date>2022-05-18</date>
+
+    <author>
+      <personname>
+        <firstname>Joshua</firstname>
+        <othername role="mi">T</othername>
+        <surname>Rowe</surname>
+      </personname>
+    </author>
+
+    <abstract>
+      This work contains devops procedures and information as a
+      reference for my personal use.
+    </abstract>
+  </info>
+
+  <xi:include
+      href="Topics/SSH/verify_key_passphrase.xml"
+  />
+
+  <bibliography>
+    <xi:include
+        href="../Biblioentries/S/SO_4411457.xml"
+    />
+  </bibliography>
+
+  <index />
+
+</book>
