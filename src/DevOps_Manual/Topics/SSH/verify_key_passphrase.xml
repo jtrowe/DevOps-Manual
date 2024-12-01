@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    version="5.2"
+    id="Topic_SSH_verify_key_passphrase"
+>
+
+  <info>
+    <keywordset>
+      <keyword>key</keyword>
+      <keyword>passphrase</keyword>
+      <keyword>password</keyword>
+      <keyword>ssh</keyword>
+    </keywordset>
+    <subjectset>
+      <subject>key</subject>
+      <subject>passphrase</subject>
+      <subject>password</subject>
+      <subject>ssh</subject>
+    </subjectset>
+    <title>SSH Client Usage</title>
+  </info>
+
+  <para>
+    Verify the passphrase for an ssh key:
+    <screen language="sh">
+      ssh-keygen -y -f $private_keyfile
+    </screen>
+    <indexterm>
+      <primary>ssh</primary>
+      <secondary>ssh-keygen</secondary>
+    </indexterm>
+    <citation>MAN_ssh-keygen</citation>
+    <citation>SO_4411457</citation>
+
+  </para>
+
+  <bibliography>
+    <xi:include
+        href="../../../Biblioentries/M/MAN_ssh-keygen.xml"
+    />
+    <xi:include
+        href="../../../Biblioentries/S/SO_4411457.xml"
+    />
+  </bibliography>
+
+</topic>

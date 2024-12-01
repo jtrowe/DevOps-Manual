@@ -1,0 +1,323 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    version="5.2"
+    id="Topic_Release_Process"
+>
+  <procedure>
+    <step>
+      <para>
+        Create a release branch from the production branch;
+        usually that is <literal>master</literal>.
+      </para>
+
+      <para>
+        Name it <literal>release/$version</literal>.
+
+        <example>
+          <screen
+              lang="sh"
+              linenumbering="unnumbered"
+          >git checkout -b release/5.0.3</screen>
+        </example>
+      </para>
+
+    </step>
+
+    <step>
+      <para>
+        Bring in any feature branches to be released.
+        Each feature branch should be squashed into a single commit.
+        <screen
+            lang="sh"
+            linenumbering="unnumbered"
+        >git merge --ff-only --squash $feature_branch</screen>
+
+        <note>
+          <para>
+            Each issue should be in their own commit in the release branch.
+          </para>
+        </note>
+      </para>
+
+    </step>
+
+    <step>
+      <para>
+        Update any release artifacts, documentation, and
+        version numbers.
+
+        <note>
+          <para>
+            The final commit on the release branch should be the update of
+            the release artifacts and version numbers.
+          </para>
+
+          <para>
+            Check to see if there is release documention specific to
+            the project that lists files that need updated during
+            a release.
+          </para>
+        </note>
+
+        <itemizedlist>
+          <listitem>
+            Any CI files that use versions.
+          </listitem>
+
+          <listitem>
+            Package tooling configuration files.
+          </listitem>
+
+        </itemizedlist>
+
+        <substeps>
+          <step>
+            <para>
+              Update the project
+              <literal>Changelog.md</literal>
+              file as per the Common Changelog specification.
+              <footnote>
+                <para>
+                  <citetitle>
+                      Common Changelog
+                      http://common-changelog.org/
+                  </citetitle>
+                </para>
+              </footnote>
+            </para>
+
+            <para>
+              Each issue should have a
+              <literal>Changelog.md</literal>
+              file under source control in
+              <literal>doc/src/Issue/$issue_number</literal>
+              .
+            </para>
+
+            <para>
+              Add each of the snippets to the project
+              <literal>Changelog.md</literal>
+              file.
+            </para>
+
+            <para>
+              <example>
+                <programlisting
+                    lang="markdown"
+                ><xi:include
+                    href="Issue_28_Changelog_Snippet.md"
+                    parse="text"
+                /></programlisting>
+              </example>
+            </para>
+          </step>
+
+          <step>
+            <para>
+              Update the release notes file
+              <literal>README.md</literal>
+              under source control in
+              <literal>src/Release/$release_version</literal>
+              .
+            </para>
+
+            <para>
+              Each issue should have a
+              <literal>Release.md</literal>
+              file in
+              <literal>src/Issue/$issue_number</literal>
+              .
+
+              <example>
+                <programlisting
+                    lang="markdown"
+                ><xi:include
+                    href="Issue_28_Release.md"
+                    parse="text"
+                /></programlisting>
+              </example>
+            </para>
+
+            <para>
+              Add each of the snippets to the project
+              release notes file
+              <literal>README.md</literal>
+              .
+            </para>
+
+            <para>
+              The release notes for 5.0.3 will end up looking like this.
+
+              <example>
+                <programlisting
+                    lang="markdown"
+                ><xi:include
+                    href="Release_5_0_3.md"
+                    parse="text"
+                /></programlisting>
+              </example>
+            </para>
+
+          </step>
+
+        </substeps>
+      </para>
+    </step>
+
+    <step>
+      <para>
+        Push the release branch to <abbrev>CI</abbrev>.
+      </para>
+    </step>
+
+    <step>
+      <para>
+        Do any extra testing of the branch.
+      </para>
+    </step>
+
+    <step>
+      <para>
+        If everything appears to be good, then finish the release.
+
+        <substeps>
+          <step>
+            <para>
+              Finalize the documentation but wait on committing it.
+
+              <caution>
+                <para>
+                  Make sure the release has a single commit per feature
+                  followed by a single commit for the release artifacts.
+                  Squash and rebase as necessary.
+                </para>
+              </caution>
+
+              <itemizedlist>
+                <listitem>
+                  <literal>src/Release/$release_version/README.md</literal>
+                </listitem>
+
+                <listitem>
+                  <literal>Changelog.md</literal>
+                </listitem>
+
+                <listitem>
+                  Any CI configs that refer to release document artifacts.
+                </listitem>
+
+                <listitem>
+                  Any files which have version numbers that need to be set now.
+                </listitem>
+
+              </itemizedlist>
+
+            </para>
+          </step>
+
+          <step>
+
+            <para>
+              Create an uncontrolled commit text file
+              <literal>commit.txt</literal>
+              .
+
+              <substeps>
+                <step>
+                  <para>
+                    Copy the contents of
+                    <literal>src/Release/$release_version/README.md</literal>
+                    .
+                  </para>
+                </step>
+
+                <step>
+                  <para>
+                    Shift the text over 2 spaces
+                    to prevent git from seeing the markdown headers
+                    as comments to be ignored.
+                  </para>
+                </step>
+
+                <step>
+                  <para>
+                    Add a first line to the file with
+                    <literal>Release 5.0.3</literal>
+                    .
+                  </para>
+                </step>
+
+                <step>
+                  <para>
+                    Ensure there is a blank line between the new title and the 
+                    rest of the text.
+                  </para>
+                </step>
+
+              </substeps>
+
+              This is be perfect for committing the release artifacts
+              and tagging the release.
+
+              <example>
+                <screen
+                    lang="text"
+                ><xi:include
+                    href="commit.txt"
+                    parse="text"
+                /></screen>
+              </example>
+
+            </para>
+          </step>
+
+          <step>
+            <para>
+              Commit the release artifacts.
+
+              <screen
+                  lang="sh"
+                  linenumbering="unnumbered"
+              >git commit -a -F commit.txt</screen>
+            </para>
+          </step>
+
+          <step>
+            <para>
+              Tag the commit.
+
+              <screen
+                  lang="sh"
+                  linenumbering="unnumbered"
+              >git tag -a -F commit.txt 5.0.3</screen>
+            </para>
+          </step>
+
+        </substeps>
+
+      </para>
+    </step>
+
+    <step>
+      <para>
+        Push the tag to CI.
+
+        <screen
+            lang="sh"
+            linenumbering="unnumbered"
+        >git push --tags $origin 5.0.3</screen>
+
+        <note>
+          <para>
+            This should trigger a release to be created in
+            GitLab if CI is set up properly.
+          </para>
+        </note>
+
+      </para>
+    </step>
+
+  </procedure>
+</topic>
