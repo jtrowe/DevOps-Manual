@@ -9,5 +9,7 @@ jobs:
   test:
     runs-on: self-hosted
     steps:
-      - name: test.run
-        run: echo "run test"
+      - name: lsb release
+        run: lsb_release --all
+      - name: os release
+        run: cat /etc/os-release
