@@ -1,5 +1,10 @@
 name: Test
 
+on:
+  push:
+    branch:
+      - test/gh
+
 jobs:
   test:
     runs-on: self-hosted

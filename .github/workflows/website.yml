@@ -2,8 +2,7 @@ name: Website
 
 on:
   push:
-    branch:
-      - test/gh
+    tags: [ "release/site" ]
 
 jobs:
   build:
