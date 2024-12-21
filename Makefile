@@ -30,6 +30,7 @@ xsl_tng_name        = docbook-xslTNG-$(xsl_tng_version)
 xsl_tng_zip         = $(xsl_tng_name).zip
 xsl_tng_url         = https://github.com/docbook/xslTNG/releases/download/$(xsl_tng_version)/$(xsl_tng_zip)
 xsl_tng_stylesheet  = $(lib_dir)/$(xsl_tng_name)/xslt/docbook.xsl
+xsl_tng_epub3_stylesheet = $(lib_dir)/$(xsl_tng_name)/xslt/epub.xsl
 xsl_tng_cmd_docbook = $(lib_dir)/$(xsl_tng_name)/bin/docbook
 xsl_tng_resources   = $(lib_dir)/$(xsl_tng_name)/resources
 
@@ -119,13 +120,17 @@ $(build_dir)/DevOps_Manual/EPUB3/DevOps_Manual.epub3 : \
 $(build_dir)/DevOps_Manual/EPUB3/mimetype
 	@ mkdir --parents $$(dirname $@)
 	cd $$(dirname $@) ; zip -X0 $$(basename $@) mimetype
-	cd $$(dirname $@) ; zip -r -X9 $$(basename $@) META-INF OEBPS
+	cd $$(dirname $@) ; zip -r -X9 $$(basename $@) META-INF OPS
 
 
 $(build_dir)/DevOps_Manual/EPUB3/mimetype : \
 $(build_dir)/DevOps_Manual/DocBook5/DevOps_Manual.xml
 	@ mkdir --parents $$(dirname $@)
-	cd $$(dirname $@) ; xsltproc $(xsl1_epub3_stylesheet) ../DocBook5/$$(basename $<)
+	cd $$(dirname $@) ; \
+	$(root_dir)/$(xsl_tng_cmd_docbook) \
+	-o:$$(basename $@) \
+	-s:$(root_dir)/$< \
+	-xsl:$(root_dir)/$(xsl_tng_epub3_stylesheet)
 
 
 #
