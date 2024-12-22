@@ -161,12 +161,29 @@ $(source_dir)/Biblioentries/S/SO_4411457.xml
 # DevOps assembly
 #
 
-$(build_dir)/DevOps_Manual/HTML5-assembly/DevOps_Manual.xhtml : \
+$(build_dir)/DevOps_Manual/HTML5-assembly/DevOps_Manual.xhtml: \
 $(build_dir)/DevOps_Manual/DocBook5/realized.xml \
-$(xsl1_markerfile)
+$(build_dir)/DevOps_Manual/HTML5-assembly/css/.touch \
+$(build_dir)/DevOps_Manual/HTML5-assembly/js/.touch
 	@ mkdir --parents $$(dirname $@)
-	cd $$(dirname $@) ; xsltproc --output $$(basename $@) $(xsl1_xhtml5_stylesheet) $(root_dir)/$<
+	cd $$(dirname $@) ; \
+	$(root_dir)/$(xsl_tng_cmd_docbook) \
+	-o:$$(basename $@) \
+	-s:$(root_dir)/$< \
+	-xsl:$(root_dir)/$(xsl_tng_stylesheet) \
+	chunk=index.xhtml \
+	chunk-output-base-url=$(build_dir)/DevOps_Manual/HTML5-assembly/ \
+	persistent-toc=true
 
+$(build_dir)/DevOps_Manual/HTML5-assembly/css/.touch:
+	@ mkdir --parents $$(dirname $@)
+	cp --archive --recursive $(lib_dir)/$(xsl_tng_name)/resources/css $(build_dir)/DevOps_Manual/HTML5-assembly/
+	@ touch $@
+
+$(build_dir)/DevOps_Manual/HTML5-assembly/js/.touch:
+	@ mkdir --parents $$(dirname $@)
+	cp --archive --recursive $(lib_dir)/$(xsl_tng_name)/resources/js $(build_dir)/DevOps_Manual/HTML5-assembly/
+	@ touch $@
 
 $(build_dir)/DevOps_Manual/DocBook5/realized.xml : \
 $(source_dir)/DevOps_Manual/assembly.xml \
@@ -427,3 +444,5 @@ $(lib_dir)/$(saxon12_5_zip)
 	mkdir --parents $$(dirname $@)
 	cd $$(dirname $@) ; unzip -q -o ../$$(basename $<)
 	touch $@
+
+.FORCE:
