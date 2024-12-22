@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.2"
+>
+
+  <title>Puppet Bolt</title>
+  <section>
+
+    <para>
+      Puppet Bolt
+      <indexterm>
+        <primary>Bolt</primary>
+        <secondary>Puppet</secondary>
+      </indexterm>
+      does not currently have an installation package for
+      Debian
+      <indexterm>
+        <primary>Debian</primary>
+        <secondary>bookworm</secondary>
+      </indexterm>
+      12.
+      I am running it via a Docker
+      <indexterm>
+        <primary>Docker</primary>
+      </indexterm>
+      container.
+
+      <note>
+        This makes localhost resolve to the Docker container itself.
+        If I need to refer to the host environment, I need to do so
+        by ip address.
+      </note>
+    </para>
+
+  </section>
+
+</topic>

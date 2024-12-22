@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<bibliography
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    version="5.2"
+>
+
+  <xi:include
+      href="Biblioentry/G/GHFMDS.xml"
+  />
+
+  <xi:include
+      href="Biblioentry/G/GLFMD.xml"
+  />
+
+  <xi:include
+      href="Biblioentry/M/MKDG.xml"
+  />
+
+  <xi:include
+      href="Biblioentry/S/SO_22601053.xml"
+  />
+
+  <xi:include
+      href="Biblioentry/X/XPointer_Spec.xml"
+  />
+
+</bibliography>

@@ -36,6 +36,7 @@
 
   </para>
 
+<!--
   <bibliography>
     <xi:include
         href="../../../Biblioentries/M/MAN_ssh-keygen.xml"
@@ -44,5 +45,6 @@
         href="../../../Biblioentries/S/SE_3818886.xml"
     />
   </bibliography>
+-->
 
 </topic>

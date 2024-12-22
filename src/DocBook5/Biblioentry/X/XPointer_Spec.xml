@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<biblioentry
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.2"
+
+    pubwork="website"
+>
+  <abbrev>XPointer_Spec</abbrev>
+
+  <title>
+    <link
+        xml:id="Link2"
+        xlink:href="https://www.w3.org/TR/xptr-xpointer/"
+    >
+      XPointer xpointer() Scheme
+    </link>
+  </title>
+</biblioentry>
