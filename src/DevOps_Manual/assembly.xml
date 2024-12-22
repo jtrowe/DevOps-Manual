@@ -5,6 +5,37 @@
     version="5.2"
 >
   <resources>
+
+    <resource
+        href="../DocBook5/Bibliography.xml"
+        xml:id="Bibliography"
+    />
+
+    <resource
+        href="../DocBook5/Biblioentry/S/SO_22601053.xml"
+        xml:id="Biblioentry_SO_22601053"
+    />
+
+    <resource
+        href="../DocBook5/Topic/AWS/Topic.xml"
+        xml:id="Topic_AWS"
+    />
+
+    <resource
+        href="../DocBook5/Topic/CI/Topic.xml"
+        xml:id="Topic_CI"
+    />
+
+    <resource
+        href="../DocBook5/Topic/Markdown/Topic.xml"
+        xml:id="Topic_Markdown"
+    />
+
+    <resource
+        href="../DocBook5/Topic/PuppetBolt/Topic.xml"
+        xml:id="Topic_PuppetBolt"
+    />
+
     <resource
         href="/home/jrowe/projects/DevOps-Manual-2/src/DevOps_Manual/Topics/SSH/add_passphrase_to_key.xml"
         xml:id="Topic_SSH_add_passphrase_to_key"
@@ -18,25 +49,47 @@
   </resources>
 
   <structure renderas="book">
-    <info>
-      <title>DevOps Manual</title>
+    <merge>
+      <info>
+        <title>DevOps Manual</title>
 
-      <date>2022-05-18</date>
+        <date>2022-05-18</date>
 
-      <author>
-        <personname>
-          <firstname>Joshua</firstname>
-          <othername role="mi">T</othername>
-          <surname>Rowe</surname>
-        </personname>
-      </author>
+        <author>
+          <personname>
+            <firstname>Joshua</firstname>
+            <othername role="mi">T</othername>
+            <surname>Rowe</surname>
+          </personname>
+        </author>
 
-      <abstract>
-        This work contains devops procedures and information as a
-        reference for my personal use.
-      </abstract>
+        <abstract>
+          This work contains devops procedures and information as a
+          reference for my personal use.
+        </abstract>
 
-    </info>
+      </info>
+    </merge>
+
+    <module
+        renderas="section"
+        resourceref="Topic_AWS"
+    />
+
+    <module
+        renderas="section"
+        resourceref="Topic_CI"
+    />
+
+    <module
+        renderas="section"
+        resourceref="Topic_Markdown"
+    />
+
+    <module
+        renderas="section"
+        resourceref="Topic_PuppetBolt"
+    />
 
     <module
         renderas="section"
@@ -48,20 +101,32 @@
         resourceref="Topic_SSH_verify_key_passphrase"
     />
 
+    <module
+        resourceref="Bibliography"
+    />
+
+<!--
+    <merge>
     <bibliography>
+
+      <module
+          renderas="biblioentry"
+          resourceref="Biblioentry_SO_22601053"
+      />
+
       <xi:include
           href="../Biblioentries/S/SO_4411457.xml"
       />
+
     </bibliography>
+    </merge>
+-->
 
     <module
         renderas="index"
     >
-      <info>
-        <title>Index</title>
-      </info>
+      <index />
     </module>
-
 
   </structure>
 </assembly>

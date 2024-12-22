@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.2"
+>
+
+  <title>Markdown</title>
+
+  <section>
+    <title>Resources</title>
+
+    <para>
+
+      <itemizedlist>
+
+        <listitem>
+          <link
+              xlink:href="https://github.github.com/gfm/"
+          >
+            GitHub Flavored Markdown Spec
+          </link>
+        </listitem>
+
+        <listitem>
+          <link
+              xlink:href="https://docs.gitlab.com/ee/user/markdown.html"
+          >
+            GitLab Flavored Markdown
+          </link>
+        </listitem>
+
+        <listitem>
+          <link
+              xlink:href="https://www.markdownguide.org/cheat-sheet/"
+          >
+            Markdown Cheat Sheet
+          </link>
+        </listitem>
+
+      </itemizedlist>
+
+    </para>
+
+  </section>
+
+  <section>
+    <title>FAQ</title>
+
+    <qandaset>
+
+      <qandaentry>
+
+        <question>
+          <para>
+            How to add a page break to Markdown?
+          </para>
+        </question>
+
+        <answer>
+
+          <para>
+            When using pandoc,
+            <indexterm>
+              <primary>pandoc</primary>
+            </indexterm>
+            use the LaTeX
+            <indexterm>
+              <primary>LaTeX</primary>
+            </indexterm>
+            <literal>\pagebreak</literal>
+            command.
+          </para>
+
+          <para>
+            Most Markdown processors should accept HTML/CSS.
+            <indexterm>
+              <primary>HTML</primary>
+              <secondary>CSS</secondary>
+            </indexterm>
+            <programlisting
+                lang="html"
+            >&lt;div style="page-break-after: always;"&gt;&lt;/div&gt;</programlisting>
+
+            <citation>SO_22601053</citation>
+          </para>
+
+        </answer>
+
+      </qandaentry>
+
+    </qandaset>
+  </section>
+
+</topic>

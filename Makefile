@@ -51,9 +51,16 @@ deploy_dir=DOC
 
 .PHONEY: build
 build: \
+build.docbook5 \
 build.epub3 \
 build.html5 \
 build.markdown
+
+.PHONEY: build.docbook5
+build.docbook5: \
+$(build_dir)/DevOps_Manual/DocBook5/DevOps_Manual.xml \
+$(build_dir)/DevOps_Manual/DocBook5/realized.xml \
+$(build_dir)/DevOps_Manual/DocBook5/realized.pretty.xml
 
 .PHONEY: build.epub3
 build.epub3: \
@@ -70,7 +77,7 @@ build.html5
 .PHONEY: build.html5
 build.html5: \
 $(build_dir)/DevOps_Manual/HTML5/DevOps_Manual.xhtml \
-$(build_dir)/DevOps_Manual/HTML5-assembly/DevOps_Manual.xhtml \
+$(build_dir)/DevOps_Manual/HTML5-assembly/index.xhtml \
 $(build_dir)/QuickReference/HTML5-Hugo/QuickReference.html \
 $(build_dir)/QuickReference/HTML5/QuickReference.html \
 $(build_dir)/Release_Process/HTML5/index.xhtml \
@@ -84,7 +91,7 @@ $(build_dir)/QuickReference/YAML/QuickReference.yml
 .PHONEY: build.doc.DevOps_Manual
 build.doc.DevOps_Manual: \
 $(build_dir)/DevOps_Manual/EPUB3/DevOps_Manual.epub3 \
-$(build_dir)/DevOps_Manual/HTML5-assembly/DevOps_Manual.xhtml \
+$(build_dir)/DevOps_Manual/HTML5-assembly/index.xhtml \
 $(build_dir)/DevOps_Manual/HTML5/DevOps_Manual.xhtml
 
 .PHONEY: build.doc.QuickReference
@@ -161,8 +168,9 @@ $(source_dir)/Biblioentries/S/SO_4411457.xml
 # DevOps assembly
 #
 
-$(build_dir)/DevOps_Manual/HTML5-assembly/DevOps_Manual.xhtml: \
+$(build_dir)/DevOps_Manual/HTML5-assembly/index.xhtml: \
 $(build_dir)/DevOps_Manual/DocBook5/realized.xml \
+$(build_dir)/DevOps_Manual/DocBook5/Bibliography.xml \
 $(build_dir)/DevOps_Manual/HTML5-assembly/css/.touch \
 $(build_dir)/DevOps_Manual/HTML5-assembly/js/.touch
 	@ mkdir --parents $$(dirname $@)
@@ -174,6 +182,16 @@ $(build_dir)/DevOps_Manual/HTML5-assembly/js/.touch
 	chunk=index.xhtml \
 	chunk-output-base-url=$(build_dir)/DevOps_Manual/HTML5-assembly/ \
 	persistent-toc=true
+
+$(build_dir)/DevOps_Manual/DocBook5/Bibliography.xml: \
+$(source_dir)/DocBook5/Bibliography.xml
+	@ mkdir --parents $$(dirname $@)
+	xsltproc --output $@ --xinclude $(identity_stylesheet) $<
+
+$(build_dir)/DevOps_Manual/DocBook5/Biblioentry/.touch:
+	@ mkdir --parents $$(dirname $@)
+	cp --archive --recursive $(source_dir)/DocBook5/Biblioentry $(build_dir)/DevOps_Manual/DocBook5/
+	@ touch $@
 
 $(build_dir)/DevOps_Manual/HTML5-assembly/css/.touch:
 	@ mkdir --parents $$(dirname $@)
@@ -444,5 +462,28 @@ $(lib_dir)/$(saxon12_5_zip)
 	mkdir --parents $$(dirname $@)
 	cd $$(dirname $@) ; unzip -q -o ../$$(basename $<)
 	touch $@
+
+$(build_dir)/DevOps_Manual/DocBook5/realized.pretty.xml: \
+$(build_dir)/DevOps_Manual/DocBook5/realized.xml
+	bin/xml-pretty < $< > $@
+
+links: $(build_dir)/DevOps_Manual/DocBook5/list_of_links.xml
+
+$(build_dir)/DevOps_Manual/DocBook5/links.xml: \
+$(build_dir)/DevOps_Manual/DocBook5/realized.xml
+	#cat $<
+	bin/find-links $<
+
+$(build_dir)/DevOps_Manual/DocBook5/list_of_links.xml: \
+$(build_dir)/DevOps_Manual/DocBook5/realized.xml
+	#cat $<
+	echo "<appendix>" > $@
+	echo "<title>List of Links</title>" >> $@
+	echo "<para>" >> $@
+	echo "<itemizedlist>" >> $@
+	bin/find-links $< >> $@
+	echo "</itemizedlist>" >> $@
+	echo "</para>" >> $@
+	echo "</appendix>" >> $@
 
 .FORCE:

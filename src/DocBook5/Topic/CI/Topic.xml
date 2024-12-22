@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.2"
+>
+
+  <title>CI</title>
+
+  <section>
+    <title>GitHub CI</title>
+
+    <section>
+      <title>Self Hosting CI</title>
+
+      <para>
+        A self-hosted CI
+        <indexterm>
+          <primary>CI</primary>
+          <secondary>GitHub</secondary>
+        </indexterm>
+        runner is assigned to a single project.
+      </para>
+
+      <para>
+        <link
+            xlink:href="https://github.com/orgs/community/discussions/26893#discussioncomment-3253827"
+        >
+          Configuring the runner without any prompting.
+        </link>
+
+        <screen>./config.sh --url $repo_url --token $PAT --agent $runner_name --work $work_dir --runasservice</screen>
+      </para>
+
+      <para>
+        GitHub prefers ephemeral runners.
+      </para>
+
+      <para>
+        You can run a single runner for multiple projects.
+        <link
+            xlink:href="https://github.com/orgs/community/discussions/26258#discussioncomment-3251019"
+        >
+          Registering Multiple Runners On One Host
+        </link>
+      </para>
+
+    </section>
+
+  </section>
+
+  <section>
+    <title>GitLab CI</title>
+
+    <section>
+      <title>Self Hosting CI</title>
+
+      <para>
+        A self-hosted CI
+        <indexterm>
+          <primary>CI</primary>
+          <secondary>GitLab</secondary>
+        </indexterm>
+        runner is shared across projects by default.
+      </para>
+
+      <para>
+        Brought up a self-hosted
+        CI
+        <indexterm>
+          <primary>CI</primary>
+          <secondary>GitLab</secondary>
+        </indexterm>
+        runner in
+        EC2
+        <indexterm>
+          <primary>EC2</primary>
+          <secondary>AWS</secondary>
+        </indexterm>
+        .
+      </para>
+
+    </section>
+
+  </section>
+
+</topic>

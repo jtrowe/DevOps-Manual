@@ -1,0 +1,148 @@
+#!/usr/bin/env perl
+
+use strict;
+use warnings;
+
+use lib 'local/lib/perl5';
+
+use XML::LibXML;
+use XML::LibXML::PrettyPrint;
+use XML::LibXML::XPathContext;
+
+my $fh;
+
+my $file = shift @ARGV;
+if ( $file ) {
+    open($fh, '<', $file) or die "cannot read file $file: $!";
+}
+else {
+    $fh = \*STDIN;
+}
+
+my $doc;
+
+#NB: method 1
+$doc = XML::LibXML->load_xml({
+    IO => $fh,
+});
+
+if ( $file ) {
+    close $fh;
+}
+
+my $pp  = XML::LibXML::PrettyPrint->new(indent_string => '  ');
+my $xpc = XML::LibXML::XPathContext->new;
+
+#print STDOUT "links\n";
+#print STDOUT "---------\n";
+
+#report_props($doc->documentElement, "documentElement:");
+#print STDOUT "---------\n";
+$doc->documentElement->setNamespace(
+    "http://docbook.org/ns/docbook", 'd', 1,
+);
+
+my $links = {};
+find_links($xpc, $doc->documentElement, $links);
+foreach my $n ( sort keys %{ $links } ) {
+    #print "title : $n\n";
+    #print "href  : " . $links->{$n} . "\n";
+    #print "xml   : " . $links->{$n} . "\n";
+
+    print "<listitem>\n";
+    print $links->{$n} . "\n";
+    print "</listitem>\n";
+
+    #print "-------\n";
+
+}
+
+sub find_links {
+    my $xpc  = shift;
+    my $root  = shift;
+    my $links = shift;
+    my $path = '//d:link';
+
+    my $list = $xpc->findnodes($path, $root);
+
+    #print "find_links: list.size => " . $list->size . "\n";
+
+    for ( my $i = 0 ; $i < $list->size; $i++ ) {
+        my $n = $list->get_node($i);
+
+        # FIXME need to force known ns prefixes
+        my $href = $xpc->findvalue('./@xlink:href', $n);
+        #print "  href => $href\n";
+        my $title = $xpc->findvalue('./text()', $n);
+        $title =~ s/^\s*//;
+        $title =~ s/\s*$//;
+        #print "  title => $title\n";
+        $links->{$title} = $href;
+        $links->{$title} = $n;
+
+        #print $n->toString;
+        #print "\n";
+        #print "---------\n";
+    }
+}
+
+
+sub explore {
+my $path;
+#NB: method 1
+$xpc->registerNs('xmlns', "http://docbook.org/ns/docbook");
+$path = '/xmlns:book/xmlns:info';
+$path = '/xmlns:book';
+$path = '/d:book';
+
+my $list = $xpc->findnodes($path, $doc); #->documentElement);
+print STDOUT "list => " . ref($list) . "\n";
+print STDOUT "list.size => " . $list->size . "\n";
+#foreach my $n ( $list->get_nodelist ) {
+for ( my $i = 0 ; $i < $list->size; $i++ ) {
+    my $n = $list->get_node($i);
+    report_props($n, undef, "list[$i]");
+
+    print STDOUT "---------\n";
+    print STDOUT $n->toString;
+    print STDOUT "\n";
+    print STDOUT "---------\n";
+}
+} # explore
+
+sub report_props {
+    my $no = shift;
+    my $h  = shift // 'report_props:';
+    my $p  = shift // '';
+
+    if ( $p ) {
+        $p .= ' ';
+    }
+
+    print $h . "\n";
+    print $p . 'ref      => ' . ref($no) . "\n";
+    print $p . 'nodeName => ' . $no->nodeName . "\n";
+    print $p . 'nodeType => ' . $no->nodeType . "\n";
+    print $p . 'namespaces:'  . ''            . "\n";
+
+    $p = "\t" . $p;
+
+    my @ns = $no->getNamespaces;
+    foreach my $ns ( @ns ) {
+        print $p . "ns     => $ns\n";
+        print $p . "ns.uri       => " . $ns->getNamespaceURI . "\n";
+        print $p . "ns.prefix    => " . $ns->getPrefix . "\n";
+        print $p . "ns.nodeName  => " . $ns->nodeName . "\n";
+        print $p . "ns.name      => " . $ns->name . "\n";
+        print $p . "ns.local     => " . $ns->getLocalName . "\n";
+        print $p . "ns.data      => " . $ns->getData . "\n";
+        print $p . "ns.value     => " . $ns->value . "\n";
+        print $p . "ns.getValue  => " . $ns->getValue . "\n";
+#if ( 'xmlns' eq $ns->getPrefix ) {
+#    $ns->
+#}
+    }
+
+
+} # report_props
+

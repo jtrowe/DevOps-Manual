@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<topic
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.2"
+>
+
+  <info>
+    <keywordset>
+      <keyword>AWS</keyword>
+      <keyword>DNS</keyword>
+      <keyword>Route53</keyword>
+    </keywordset>
+
+    <!-- might be broken -->
+    <itermset>
+      <indexterm>DNS</indexterm>
+      <indexterm>dynamic</indexterm>
+    </itermset>
+
+    <revhistory>
+      <revision>
+        <date>2024-12-22</date>
+        <revnumber>1</revnumber>
+        <revremark>tbd</revremark>
+      </revision>
+
+    </revhistory>
+
+  </info>
+
+  <title>AWS</title>
+
+    <para>
+      AWS
+      <indexterm>
+        <primary>AWS</primary>
+        <secondary>Amazon</secondary>
+      </indexterm>
+      instances are assigned a fresh IP address on startup.
+    </para>
+
+    <para>
+      You can use Elastic IPs to keep a static IP.
+      But are limited to 5 per region per customer by default.
+    </para>
+
+    <para>
+      You might be able to put instances behind a load balancer and
+      keep what looks like a static IP.
+      Unsure if this is possible.
+    </para>
+
+    <para>
+      You can have the instance reset it's own Route53
+      <indexterm>
+        <primary>Route53</primary>
+        <secondary>AWS</secondary>
+      </indexterm>
+      entry on startup.
+
+      <link xlink:href="https://gist.github.com/kixorz/81287bb06dbc5e16e96b">
+        Update Route53 entry On Instance Start
+      </link>
+      <indexterm>
+        <primary>Route53</primary>
+      </indexterm>
+    </para>
+
+</topic>

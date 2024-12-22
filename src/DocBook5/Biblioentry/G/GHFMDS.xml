@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<biblioentry
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.2"
+
+    pubwork="website"
+>
+  <abbrev>GHFDGS</abbrev>
+
+  <title>
+    <link
+        xlink:href="https://github.github.com/gfm/"
+    >
+      GitHub Flavored Markdown Spec
+    </link>
+  </title>
+</biblioentry>

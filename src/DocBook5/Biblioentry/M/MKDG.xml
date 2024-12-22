@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<biblioentry
+    xmlns="http://docbook.org/ns/docbook"
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+    version="5.2"
+
+    pubwork="website"
+>
+  <abbrev>MKDG</abbrev>
+
+  <title>
+    <link
+        xml:id="Link"
+        xlink:href="https://www.markdownguide.org/cheat-sheet/"
+    >
+      Markdown Cheat Sheet
+    </link>
+  </title>
+</biblioentry>
