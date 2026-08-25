@@ -34,7 +34,7 @@ xsl_tng_epub3_stylesheet = $(lib_dir)/$(xsl_tng_name)/xslt/epub.xsl
 xsl_tng_cmd_docbook = $(lib_dir)/$(xsl_tng_name)/bin/docbook
 xsl_tng_resources   = $(lib_dir)/$(xsl_tng_name)/resources
 
-assembly_name = assembly-2_0_1
+assembly_name = assembly-2_0_5
 assembly_zip  = $(assembly_name).zip
 assembly_url  = https://www.xmlmind.com/xmleditor/_assembly/$(assembly_zip)
 assembly_jar  = $(lib_dir)/$(assembly_name)/lib/assembly.jar
