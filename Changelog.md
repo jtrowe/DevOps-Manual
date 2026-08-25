@@ -1,12 +1,19 @@
 # Changelog
 
+## UNRELEASED
+
+### Issue #42 Update assembly to 2.0.5
+    
+[#42](https://github.com/jtrowe/DevOps-Manual/issues/42)
+
+
 ## 0.1.0 - 2024-12-01
 
-## Issue #28: Add article how to release from gitlab/jtrowe/ci
+### Issue #28: Add article how to release from gitlab/jtrowe/ci
 
 [#28](https://github.com/jtrowe/DevOps-Manual/issues/28)
 
-### Changes
+#### Changes
 
 - Add document Website
 - Deploy Website to GitHub pages on tag `release/site`.
