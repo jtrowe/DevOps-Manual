@@ -94,6 +94,10 @@ $(build_dir)/DevOps_Manual/EPUB3/DevOps_Manual.epub3 \
 $(build_dir)/DevOps_Manual/HTML5-assembly/index.xhtml \
 $(build_dir)/DevOps_Manual/HTML5/DevOps_Manual.xhtml
 
+.PHONEY: build.doc.DevOps_Manual.assembly
+build.doc.DevOps_Manual.assembly: \
+$(build_dir)/DevOps_Manual/HTML5-assembly/index.xhtml
+
 .PHONEY: build.doc.QuickReference
 build.doc.QuickReference: \
 $(build_dir)/QuickReference/HTML5-Hugo/QuickReference.html \
@@ -169,19 +173,39 @@ $(source_dir)/Biblioentries/S/SO_4411457.xml
 #
 
 $(build_dir)/DevOps_Manual/HTML5-assembly/index.xhtml: \
-$(build_dir)/DevOps_Manual/DocBook5/realized.xml \
-$(build_dir)/DevOps_Manual/DocBook5/Bibliography.xml \
-$(build_dir)/DevOps_Manual/HTML5-assembly/css/.touch \
-$(build_dir)/DevOps_Manual/HTML5-assembly/js/.touch
-	@ mkdir --parents $$(dirname $@)
-	cd $$(dirname $@) ; \
+$(build_dir)/DevOps_Manual/realized.xml
+	@ mkdir --parents $(shell dirname $@)
+	cd $(shell dirname $@) ; \
 	$(root_dir)/$(xsl_tng_cmd_docbook) \
-	-o:$$(basename $@) \
+	-o:$(shell basename $@) \
+	--resources \
 	-s:$(root_dir)/$< \
 	-xsl:$(root_dir)/$(xsl_tng_stylesheet) \
 	chunk=index.xhtml \
 	chunk-output-base-url=$(build_dir)/DevOps_Manual/HTML5-assembly/ \
 	persistent-toc=true
+
+$(build_dir)/DevOps_Manual/realized.xml : \
+$(build_dir)/DevOps_Manual/assembly.xml \
+$(build_dir)/DocBook5/.rsync.txt \
+$(assembly_jar)
+	@ mkdir --parents $(shell dirname $@)
+	java -jar $(assembly_jar) $< $@
+
+$(build_dir)/DevOps_Manual/assembly.xml : \
+$(source_dir)/DevOps_Manual/assembly.xml
+	@ mkdir --parents $(shell dirname $@)
+	rsync --archive $(shell dirname $<)/ $(shell dirname $@)
+	touch $(shell dirname $@)/.rsync.txt
+
+$(build_dir)/DocBook5/.rsync.txt : \
+$(source_dir)/DocBook5/Bibliography.xml \
+$(source_dir)/DocBook5/Topic/AWS/Topic.xml \
+$(source_dir)/DocBook5/Topic/CI/Topic.xml \
+$(source_dir)/DocBook5/Topic/Markdown/Topic.xml
+	@ mkdir --parents $(shell dirname $@)
+	rsync --archive $(source_dir)/DocBook5 $(build_dir)/
+	touch $@
 
 $(build_dir)/DevOps_Manual/DocBook5/Bibliography.xml: \
 $(source_dir)/DocBook5/Bibliography.xml
@@ -192,26 +216,6 @@ $(build_dir)/DevOps_Manual/DocBook5/Biblioentry/.touch:
 	@ mkdir --parents $$(dirname $@)
 	cp --archive --recursive $(source_dir)/DocBook5/Biblioentry $(build_dir)/DevOps_Manual/DocBook5/
 	@ touch $@
-
-$(build_dir)/DevOps_Manual/HTML5-assembly/css/.touch:
-	@ mkdir --parents $$(dirname $@)
-	cp --archive --recursive $(lib_dir)/$(xsl_tng_name)/resources/css $(build_dir)/DevOps_Manual/HTML5-assembly/
-	@ touch $@
-
-$(build_dir)/DevOps_Manual/HTML5-assembly/js/.touch:
-	@ mkdir --parents $$(dirname $@)
-	cp --archive --recursive $(lib_dir)/$(xsl_tng_name)/resources/js $(build_dir)/DevOps_Manual/HTML5-assembly/
-	@ touch $@
-
-$(build_dir)/DevOps_Manual/DocBook5/realized.xml : \
-$(source_dir)/DevOps_Manual/assembly.xml \
-$(source_dir)/DevOps_Manual/Topics/SSH/add_passphrase_to_key.xml \
-$(source_dir)/DevOps_Manual/Topics/SSH/verify_key_passphrase.xml \
-$(source_dir)/Biblioentries/M/MAN_ssh-keygen.xml \
-$(source_dir)/Biblioentries/S/SO_4411457.xml \
-$(assembly_jar)
-	@ mkdir --parents $$(dirname $@)
-	java -jar $(assembly_jar) $< $@
 
 
 #
