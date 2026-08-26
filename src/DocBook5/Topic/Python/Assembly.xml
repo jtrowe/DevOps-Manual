@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<assembly
+    xmlns="http://docbook.org/ns/docbook"
+
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+
+    version="5.2"
+>
+
+  <resources>
+
+    <resource
+        href="Links.xml"
+        xml:id="Section_Links"
+    />
+
+    <resource
+        href="function-print/Topic.xml"
+        xml:id="Topic_Function_Print"
+    />
+
+    <resource
+        href="function-zip/Topic.xml"
+        xml:id="Topic_Function_Zip"
+    />
+
+    <resource
+        href="specify_types/Topic.xml"
+        xml:id="Topic_Specify_Types"
+    />
+
+    <resource
+        href="variable-underscore/Topic.xml"
+        xml:id="Topic_Variable_Underscore"
+    />
+
+  </resources>
+
+  <structure renderas="topic">
+
+    <merge>
+      <title>Python</title>
+    </merge>
+
+    <module
+        renderas="section"
+        resourceref="Section_Links"
+    />
+
+    <module
+        renderas="section"
+        resourceref="Topic_Function_Print"
+    />
+
+    <module
+        renderas="section"
+        resourceref="Topic_Function_Zip"
+    />
+
+    <module
+        renderas="section"
+        resourceref="Topic_Specify_Types"
+    />
+
+    <module
+        renderas="section"
+        resourceref="Topic_Variable_Underscore"
+    />
+
+  </structure>
+</assembly>

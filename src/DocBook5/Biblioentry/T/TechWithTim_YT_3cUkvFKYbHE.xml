@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<biblioentry
+
+    xmlns="http://docbook.org/ns/docbook"
+
+    xmlns:xlink="http://www.w3.org/1999/xlink"
+
+    version="5.2"
+
+    pubwork="website"
+>
+  <abbrev>TechWithTim_YT_3cUkvFKYbHE</abbrev>
+
+  <author>
+    <orgname>
+      <uri type="webpage">
+        <link
+            xml:id="Link_YouTube_TechWithTim"
+            xlink:href="http://www.youtube.com/@TechWithTim"
+        >
+          Tech With Time @ YouTube
+        </link>
+      </uri>
+    </orgname>
+  </author>
+
+  <title>
+    <link
+        xml:id="Link_YouTube_TechWithTim_10_ULTIMATE_Python_Tips"
+        xlink:href="http://youtu.be/3cUkvFKYbHE?si=FpgpkKXXkEtmLpwl"
+    >
+      10 ULTIMATE Python Tips
+    </link>
+  </title>
+</biblioentry>

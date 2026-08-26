@@ -2,6 +2,15 @@
 
 ## UNRELEASED
 
+### Issue #45 Add Python Programming Tips
+
+[#45 Add Python Programming Tips](https://github.com/jtrowe/DevOps-Manual/issues/45)
+
+#### Changes
+
+- Refactor DevOps-Manual assembly build
+- Add Python programming topic
+
 ### Issue #33 Build out assembly based book
 
 [#33 Build out assembly based book](https://github.com/jtrowe/DevOps-Manual/issues/33)
