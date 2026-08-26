@@ -59,8 +59,8 @@ build.markdown
 .PHONEY: build.docbook5
 build.docbook5: \
 $(build_dir)/DevOps_Manual/DocBook5/DevOps_Manual.xml \
-$(build_dir)/DevOps_Manual/DocBook5/realized.xml \
-$(build_dir)/DevOps_Manual/DocBook5/realized.pretty.xml
+$(build_dir)/DevOps_Manual/realized.xml \
+$(build_dir)/DevOps_Manual/realized.pretty.xml
 
 .PHONEY: build.epub3
 build.epub3: \
@@ -87,6 +87,14 @@ $(build_dir)/Website/index.html
 .PHONEY: build.yaml
 build.yaml: \
 $(build_dir)/QuickReference/YAML/QuickReference.yml
+
+.PHONEY: build.doc
+build.doc: \
+build.doc.DevOps_Manual \
+build.doc.DevOps_Manual.assembly \
+build.doc.QuickReference \
+build.doc.Release_Process \
+build.doc.Website
 
 .PHONEY: build.doc.DevOps_Manual
 build.doc.DevOps_Manual: \
@@ -162,7 +170,7 @@ $(build_dir)/DevOps_Manual/DocBook5/DevOps_Manual.xml
 
 $(build_dir)/DevOps_Manual/DocBook5/DevOps_Manual.xml : \
 $(source_dir)/DevOps_Manual/DevOps_Manual.xml \
-$(source_dir)/DevOps_Manual/Topics/SSH/verify_key_passphrase.xml \
+$(source_dir)/DevOps_Manual/Topic/SSH/verify_key_passphrase.xml \
 $(source_dir)/Biblioentries/S/SO_4411457.xml
 	@ mkdir --parents $$(dirname $@)
 	xsltproc --output $@ --xinclude $(identity_stylesheet) $<
@@ -188,9 +196,26 @@ $(build_dir)/DevOps_Manual/realized.xml
 $(build_dir)/DevOps_Manual/realized.xml : \
 $(build_dir)/DevOps_Manual/assembly.xml \
 $(build_dir)/DocBook5/.rsync.txt \
+$(build_dir)/DocBook5/Topic/Python/Topic.xml \
 $(assembly_jar)
 	@ mkdir --parents $(shell dirname $@)
 	java -jar $(assembly_jar) $< $@
+
+$(build_dir)/DocBook5/Topic/Python/Topic.xml : \
+$(build_dir)/DocBook5/Topic/Python/Assembly.xml \
+$(build_dir)/DocBook5/.rsync.txt \
+$(build_dir)/DocBook5/Topic/Python/function-print/function-print.out.txt \
+$(build_dir)/DocBook5/Topic/Python/function-zip/function-zip.out.txt \
+$(build_dir)/DocBook5/Topic/Python/specify_types/specify_types.out.txt \
+$(build_dir)/DocBook5/Topic/Python/variable-underscore/variable-underscore.out.txt \
+$(assembly_jar)
+	@ mkdir --parents $(shell dirname $@)
+	java -jar $(assembly_jar) $< $@
+
+$(build_dir)/DocBook5/Topic/Python/%.out.txt : \
+$(build_dir)/DocBook5/Topic/Python/%.py
+	@ echo "\$$ python $(shell basename $<)" > $@
+	python $< >> $@
 
 $(build_dir)/DevOps_Manual/assembly.xml : \
 $(source_dir)/DevOps_Manual/assembly.xml
@@ -467,8 +492,8 @@ $(lib_dir)/$(saxon12_5_zip)
 	cd $$(dirname $@) ; unzip -q -o ../$$(basename $<)
 	touch $@
 
-$(build_dir)/DevOps_Manual/DocBook5/realized.pretty.xml: \
-$(build_dir)/DevOps_Manual/DocBook5/realized.xml
+$(build_dir)/DevOps_Manual/realized.pretty.xml: \
+$(build_dir)/DevOps_Manual/realized.xml
 	bin/xml-pretty < $< > $@
 
 links: $(build_dir)/DevOps_Manual/DocBook5/list_of_links.xml

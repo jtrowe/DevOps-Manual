@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<section
+    xmlns="http://docbook.org/ns/docbook"
+
+    xmlns:xi="http://www.w3.org/2001/XInclude"
+
+    version="5.2"
+>
+
+  <title>Variable: underscore</title>
+
+  <para>
+    Underscore stores the previously evaluated expression.
+    But do not use this as it is too magical.
+  </para>
+
+  <para>
+    Can use underscore as an anonymous variable.
+  </para>
+
+  <programlisting language="py"><xi:include
+      href="variable-underscore.py"
+      parse="text"
+/></programlisting>
+
+  <screen><xi:include
+      href="variable-underscore.out.txt"
+      parse="text"
+/></screen>
+
+  <citation>TechWithTim_YT_3cUkvFKYbHE</citation>
+
+</section>

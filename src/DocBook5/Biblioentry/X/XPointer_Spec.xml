@@ -10,7 +10,6 @@
 
   <title>
     <link
-        xml:id="Link2"
         xlink:href="https://www.w3.org/TR/xptr-xpointer/"
     >
       XPointer xpointer() Scheme
